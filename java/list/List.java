@@ -1,11 +1,11 @@
 package list;
 
 public interface List<T> {
-    List<T> add(T data) throws Exception;
+    void add(T data) throws Exception;
 
-    int remove(int index);
+    void remove(int index) throws Exception ;
 
-    List<T> modify(int index, T data);
+    void modify (int index, T data) throws Exception ;
 
-    List<T> slice(int start, int end);
+    List<T> slice(int start, int end) throws Exception ;
 }
