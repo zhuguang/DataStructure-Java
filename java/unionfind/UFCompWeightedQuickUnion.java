@@ -2,11 +2,15 @@ package unionfind;
 
 import java.util.Scanner;
 
-public class UFWeightedQuickUnion extends UF {
+/**
+ * 压缩路径加权 quickunion算法
+ * 与加权 quickunion 区别是 find() 中加一个循环，把路径上的节点都指向根节点
+ */
+public class UFCompWeightedQuickUnion extends UF {
 
-    protected int[] height;
+    private int[] height;
 
-    public UFWeightedQuickUnion(int N) {
+    public UFCompWeightedQuickUnion(int N) {
         super(N);
         height = new int[N];
         for (int i = 0; i < N; i++) {
@@ -16,8 +20,16 @@ public class UFWeightedQuickUnion extends UF {
 
     @Override
     int find(int p) {
+        int start = p;
+//        让 p 取到根节点的值
         while (p != id[p]) {
             p = id[p];
+        }
+//        重新遍历，把路径上的节点都指向根节点
+        while (start != p) {
+            int temp = start;
+            start = id[start];
+            id[temp] = p;
         }
         return p;
     }
@@ -61,7 +73,6 @@ public class UFWeightedQuickUnion extends UF {
 //            System.out.println(p + " " + q);
         }
         long elapsed = System.currentTimeMillis() - start;
-
         System.out.println(qf.count() + " components" + ", elapsed(ms):" + elapsed);
     }
 }

@@ -35,6 +35,7 @@ public class UFQuickUnion extends UF {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int count = scanner.nextInt();
+        long start = System.currentTimeMillis();
         UFQuickUnion qf = new UFQuickUnion(count);
         while (scanner.hasNextInt()) {
             int p = scanner.nextInt();
@@ -49,6 +50,7 @@ public class UFQuickUnion extends UF {
 //            打印连接
             System.out.println(p + " " + q);
         }
-        System.out.println(qf.count() + " components");
+        long elapsed = System.currentTimeMillis() - start;
+        System.out.println(qf.count() + " components" + ", elapsed(ms):" + elapsed);
     }
 }

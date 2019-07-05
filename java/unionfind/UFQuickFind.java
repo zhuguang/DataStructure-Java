@@ -14,6 +14,7 @@ public class UFQuickFind extends UF {
     public UFQuickFind(int N) {
         super(N);
     }
+
     //    查找分量标识符
     public int find(int p) {
         return id[p];
@@ -38,6 +39,7 @@ public class UFQuickFind extends UF {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int count = scanner.nextInt();
+        long start = System.currentTimeMillis();
         UFQuickFind qf = new UFQuickFind(count);
         while (scanner.hasNextInt()) {
             int p = scanner.nextInt();
@@ -52,6 +54,7 @@ public class UFQuickFind extends UF {
 //            打印连接
             System.out.println(p + " " + q);
         }
-        System.out.println(qf.count() + " components");
+        long elapsed = System.currentTimeMillis() - start;
+        System.out.println(qf.count() + " components" + ", elapsed(ms):" + elapsed);
     }
 }
