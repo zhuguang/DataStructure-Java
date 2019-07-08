@@ -36,25 +36,4 @@ public class UFQuickFind extends UF {
         count--;
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int count = scanner.nextInt();
-        long start = System.currentTimeMillis();
-        UFQuickFind qf = new UFQuickFind(count);
-        while (scanner.hasNextInt()) {
-            int p = scanner.nextInt();
-            int q = scanner.nextInt();
-//            判断是否连接
-            if (qf.connected(p, q)) {
-                System.out.println(p + "和" + q + "已连接");
-                continue;
-            }
-//            如果没连接，则归并分量
-            qf.union(p, q);
-//            打印连接
-            System.out.println(p + " " + q);
-        }
-        long elapsed = System.currentTimeMillis() - start;
-        System.out.println(qf.count() + " components" + ", elapsed(ms):" + elapsed);
-    }
 }
