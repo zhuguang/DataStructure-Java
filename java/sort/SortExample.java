@@ -1,16 +1,18 @@
 package sort;
 
+import edu.princeton.cs.algs4.In;
 import performance.StopWatch;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
-public abstract class SortExample<T> {
+public abstract class SortExample {
     /**
      * 需要实现的排序算法
      *
      * @param t
      */
-    abstract void sort(Comparable<T>[] t);
+    abstract void sort(Comparable[] t);
 
     /**
      * 比较 a 和 b，如果 a 小于 b，返回 true
@@ -19,7 +21,7 @@ public abstract class SortExample<T> {
      * @param b
      * @return
      */
-    public boolean less(Comparable<T> a, T b) {
+    public boolean less(Comparable a, Comparable b) {
         return a.compareTo(b) < 0;
     }
 
@@ -30,8 +32,8 @@ public abstract class SortExample<T> {
      * @param a
      * @param b
      */
-    public void exch(Comparable<T>[] arr, int a, int b) {
-        Comparable<T> temp = arr[a];
+    public void exch(Comparable[] arr, int a, int b) {
+        Comparable temp = arr[a];
         arr[a] = arr[b];
         arr[b] = temp;
     }
@@ -41,7 +43,7 @@ public abstract class SortExample<T> {
      *
      * @param arr
      */
-    public void show(Comparable<T>[] arr) {
+    public void show(Comparable[] arr) {
         StringBuilder b = new StringBuilder("数组 => \n");
         for (int a = 0; a < arr.length; a++) {
             b.append(arr[a].toString()).append(" ");
@@ -55,9 +57,9 @@ public abstract class SortExample<T> {
      * @param arr
      * @return
      */
-    public boolean isSorted(Comparable<T>[] arr) {
+    public boolean isSorted(Comparable[] arr) {
         for (int a = 0; a < arr.length - 1; a++) {
-            if (less(arr[a + 1], (T) arr[a])) {
+            if (less(arr[a + 1], arr[a])) {
                 return false;
             }
         }
@@ -65,8 +67,17 @@ public abstract class SortExample<T> {
     }
 
     public static void main(String[] args) {
-//        StopWatch watch = new StopWatch();
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("elapsed: " + watch.elapsedMillisTime());
+        SelectSort sort = new SelectSort();
+        int[] input = new In().readAllInts();
+        Integer[] ints = new Integer[input.length];
+        for (int idx = 0; idx < input.length; idx++) {
+            ints[idx] = input[idx];
+        }
+//        Integer[] ints = new Integer[]{5, 3, 6, 1, 2, 6, 8, 9, 3, 4, 6, 1, 4, 2, 3};
+        StopWatch watch = new StopWatch();
+        sort.show(ints);
+        sort.sort(ints);
+        sort.show(ints);
+        System.out.println("elapsed: " + watch.elapsedMillisTime());
     }
 }

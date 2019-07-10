@@ -1,5 +1,6 @@
 package unionfind;
 
+import java.lang.reflect.Constructor;
 import java.util.Scanner;
 
 //抽象类中只声明非空构造函数，子类必须显示声明非空构造方法。如果子类没有声明构造方法，默认调用父类空构造方法
@@ -33,25 +34,29 @@ public abstract class UF {
         return count;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        System.out.println(args[0]);
+        String className = args[0];
         Scanner scanner = new Scanner(System.in);
         int count = scanner.nextInt();
         long start = System.currentTimeMillis();
-        UFQuickUnion qf = new UFQuickUnion(count);
+        Class c = Class.forName(className);
+        Constructor constructor = c.getDeclaredConstructor(int.class);
+        UF uf = (UF) constructor.newInstance(count);
         while (scanner.hasNextInt()) {
             int p = scanner.nextInt();
             int q = scanner.nextInt();
 //            判断是否连接
-            if (qf.connected(p, q)) {
+            if (uf.connected(p, q)) {
                 System.out.println(p + "和" + q + "已连接");
                 continue;
             }
 //            如果没连接，则归并分量
-            qf.union(p, q);
+            uf.union(p, q);
 //            打印连接
             System.out.println(p + " " + q);
         }
         long elapsed = System.currentTimeMillis() - start;
-        System.out.println(qf.count() + " components" + ", elapsed(ms):" + elapsed);
+        System.out.println(uf.count() + " components" + ", elapsed(ms):" + elapsed);
     }
 }

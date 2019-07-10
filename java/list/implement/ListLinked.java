@@ -68,9 +68,9 @@ public class ListLinked<T> implements List<T> {
     @Override
     public void modify(int index, Object data) throws Exception {
         int count = 0;
-        for (Node current = firstNode; ; current = current.next) {
+       /* for (Node current = firstNode; ; current = current.next) {
             if ()
-        }
+        }*/
 
     }
 
