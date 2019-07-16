@@ -1,9 +1,7 @@
 package sort;
 
-import com.sun.deploy.util.StringUtils;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
 import performance.StopWatch;
 
 import java.util.Random;
@@ -25,8 +23,11 @@ public class PerfCompare {
         if ("insertion".equals(alg)) {
             sort = new InsertSort();
         }
+        if ("shell".equals(alg)) {
+            sort = new ShellSort();
+        }
         sort.sort(arr);
-//        sort.show(arr);
+        sort.show(arr);
         return watch.elapsedMillisTime();
     }
 

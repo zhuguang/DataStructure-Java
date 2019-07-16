@@ -6,50 +6,13 @@ import performance.StopWatch;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public abstract class SortExample {
+public abstract class SortExample extends SortAuxFunc {
     /**
      * 需要实现的排序算法
      *
-     * @param t
+     * @param data
      */
-    abstract void sort(Comparable[] t);
-
-    /**
-     * 比较 a 和 b，如果 a 小于 b，返回 true
-     *
-     * @param a
-     * @param b
-     * @return
-     */
-    public boolean less(Comparable a, Comparable b) {
-        return a.compareTo(b) < 0;
-    }
-
-    /**
-     * 交换 arr数组中 a 和 b 坐标的元素
-     *
-     * @param arr
-     * @param a
-     * @param b
-     */
-    public void exch(Comparable[] arr, int a, int b) {
-        Comparable temp = arr[a];
-        arr[a] = arr[b];
-        arr[b] = temp;
-    }
-
-    /**
-     * 输出数组，用来验证结果
-     *
-     * @param arr
-     */
-    public void show(Comparable[] arr) {
-        StringBuilder b = new StringBuilder("数组 => \n");
-        for (int a = 0; a < arr.length; a++) {
-            b.append(arr[a].toString()).append(" ");
-        }
-        System.out.println(b.toString());
-    }
+    abstract void sort(Comparable[] data);
 
     /**
      * 验证数组是否正确排序
@@ -67,17 +30,47 @@ public abstract class SortExample {
     }
 
     public static void main(String[] args) {
-        SelectSort sort = new SelectSort();
+        String func = args[0];
         int[] input = new In().readAllInts();
         Integer[] ints = new Integer[input.length];
         for (int idx = 0; idx < input.length; idx++) {
             ints[idx] = input[idx];
         }
-//        Integer[] ints = new Integer[]{5, 3, 6, 1, 2, 6, 8, 9, 3, 4, 6, 1, 4, 2, 3};
+        SortExample sort = new SelectSort();
         StopWatch watch = new StopWatch();
         sort.show(ints);
-        sort.sort(ints);
-        sort.show(ints);
+        if ("selection".equals(func)) {
+            sort = new SelectSort();
+        }
+        if ("insertion".equals(func)) {
+            sort = new SelectSort();
+        }
+        if ("localmerge".equals(func)) {
+            sort = new LocalMergeSort();
+        }
+        if ("mergetd".equals(func)) {
+            sort = new MergeTopDown();
+        }
+        if ("Mergebu".equals(func)) {
+            sort = new MergeBottomUp();
+        }
+        if ("quicksort".equals(func)) {
+            sort = new QuickSort();
+        }
+        if ("heapsort".equals(func)) {
+            sort = new HeapPQSort();
+            // 堆排序是从 1 到 N，对数组提前做个调整
+            Integer[] temp = new Integer[input.length + 1];
+            for (int idx = 0; idx < input.length; idx++) {
+                temp[idx + 1] = input[idx];
+            }
+            ints = temp;
+            sort.sort(ints);
+            sort.show(ints, 1, ints.length);
+        } else {
+            sort.sort(ints);
+            sort.show(ints);
+        }
         System.out.println("elapsed: " + watch.elapsedMillisTime());
     }
 }
